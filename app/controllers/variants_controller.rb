@@ -12,6 +12,7 @@ class VariantsController < ApplicationController
     @search = Variant.search(params[:q])
     
     @variants = @search.result.page(params[:page]).per(20)
+    @search.build_condition
     
     respond_to do |format|
       format.html # index.html.erb

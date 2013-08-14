@@ -8,7 +8,8 @@ ExomeVariantDatabase::Application.routes.draw do
   resources :chromosomes
 
   resources :variants do
-    get 'query_biomart', :on => :member  
+    get 'query_biomart', :on => :member
+    collection { post :search, to: 'products#index' }
   end
 
   resources :quality_records

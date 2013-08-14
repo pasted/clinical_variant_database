@@ -6,6 +6,7 @@ Gene annotations can be retrieved via Biomart integration from Ensembl dataset.
 
 - [x] VCF file upload and parsing.
 - [x] Integration with Biomart (hsapiens_gene_ensembl), other datasets can also be interrogated.
-- [ ] Search functionality for Variants.
+- [x] Pagination.
+- [x] Search and sorting functionality for Variants, using Ransack.
 - [ ] Batch update of Gene annotation using Sidekick / redis workers.
 - [ ] Relationships between Samples to reflect parent-offspring by Closure trees.
