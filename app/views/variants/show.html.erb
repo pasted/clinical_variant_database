@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Chromosome name:</b>
+  <%= @variant.chromosome.name %>
+</p>
+<p>
+  <b>Name:</b>
+  <%= @variant.name %>
+</p>
+<p>
+  <b>Position start:</b>
+  <%= @variant.position_start %>
+</p>
+<p>
+  <b>Reference:</b>
+  <%= @variant.reference %>
+</p>
+<p>
+  <b>Alternative:</b>
+  <%= @variant.alternative %>
+</p>
+
+
+<%= link_to 'Edit', edit_variant_path(@variant) %> |
+<%= link_to 'Back', variants_path %>

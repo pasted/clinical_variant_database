@@ -1,0 +1,37 @@
+<h1>Listing variants</h1>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th><%= sort_link(@search, :location_chromosome_name, "Chromosome") %></th>
+    <th><%= sort_link(@search, :name, "Variant name") %></th>
+    <th><%= sort_link(@search, :location_position_start, "Position start") %></th>
+    <th><%= sort_link(@search, :reference, "Reference") %></th>
+    <th><%= sort_link(@search, :alternative, "Alternative") %></th>
+    <th>Gene</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @variants.each do |variant| %>
+  <tr>
+    <td><%= variant.id %></td>
+    <td><%= variant.location.chromosome.name %></td>
+    <td><%= variant.name %></td>
+    <td><%= variant.location.position_start %></td>
+    <td><%= variant.reference %></td>
+    <td><%= variant.alternative %></td>
+    <td><%= variant.gene_name %></td>
+    <td><%= link_to 'Biomart', query_biomart_variant_path(variant) %></td>
+    <td><%= link_to 'Show', variant %></td>
+    <td><%= link_to 'Edit', edit_variant_path(variant) %></td>
+    <td><%= link_to 'Destroy', variant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+<%= paginate @variants %>
+<br />
+
+<%= link_to 'New Variant', new_variant_path %>

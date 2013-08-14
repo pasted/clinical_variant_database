@@ -1,0 +1,26 @@
+<h1>Listing genes</h1>
+
+<table>
+  <tr>
+    <th>External Gene Id</th>
+    <th>Ensembl Gene Id</th>
+    <th>Transcript Count</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @genes.each do |gene| %>
+  <tr>
+    <td><%= gene.external_gene_id %></td>
+    <td><%= gene.ensembl_gene_id %></td>
+    <td><%= gene.transcript_count %></td>
+    <td><%= link_to 'Show', gene %></td>
+    <td><%= link_to 'Edit', edit_gene_path(gene) %></td>
+    <td><%= link_to 'Destroy', gene, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<%= link_to 'New Gene', new_gene_path %>

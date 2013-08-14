@@ -1,0 +1,37 @@
+<%= form_for(@variant) do |f| %>
+  <% if @variant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@variant.errors.count, "error") %> prohibited this variant from being saved:</h2>
+
+      <ul>
+      <% @variant.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :chromosome_id %><br />
+    <%= f.text_field :chromosome_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div> 
+  <div class="field">
+    <%= f.label :position_start %><br />
+    <%= f.text_field :position_start %>
+  </div>
+  <div class="field">
+    <%= f.label :reference %><br />
+    <%= f.text_field :reference %>
+  </div>
+  <div class="field">
+    <%= f.label :alternative %><br />
+    <%= f.text_field :alternative %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
