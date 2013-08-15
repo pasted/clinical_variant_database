@@ -10,6 +10,9 @@ gem 'activerecord-postgres-hstore'
 gem 'ransack'
 gem 'kaminari'
 gem 'biomart'
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
 
 # Gems used only for assets and not required
 # in production environments by default.

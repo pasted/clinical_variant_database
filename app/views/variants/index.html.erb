@@ -1,5 +1,6 @@
 <h1>Listing variants</h1>
-
+<%= link_to "Batch query biomart for all variants", batch_query_biomart_variants_path, id: "batch_link", remote: true %>
+<span id="batch_update" style="display:none">TEST</span>
 <table>
   <tr>
     <th>Id</th>
@@ -32,6 +33,5 @@
 <% end %>
 </table>
 <%= paginate @variants %>
-<br />
 <%= render :partial => 'search_partial' %>
 <%= link_to 'New Variant', new_variant_path %>

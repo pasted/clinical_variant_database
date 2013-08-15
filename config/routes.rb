@@ -1,3 +1,4 @@
+require 'sidekiq/web'
 ExomeVariantDatabase::Application.routes.draw do
   resources :uploads do
     get 'parse', :on => :member 
@@ -8,10 +9,17 @@ ExomeVariantDatabase::Application.routes.draw do
   resources :chromosomes
 
   resources :variants do
-    get 'query_biomart', :on => :member
-    collection { post :search, to: 'products#index' }
-  end
 
+  	collection do
+  		match 'search' => 'variants#index', :via => [:get, :post], :as => :search
+  	end
+    get 'query_biomart', :on => :member
+
+    get 'batch_query_biomart', :on => :collection
+  end
+  
+  mount Sidekiq::Web, at: "/sidekiq"
+  
   resources :quality_records
 
   resources :samples

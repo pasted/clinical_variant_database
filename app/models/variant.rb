@@ -5,9 +5,11 @@ class Variant < ActiveRecord::Base
   has_many :quality_records, dependent: :destroy
 
   def find_gene
-  	  if (location = Location.includes_location(self.location.position_start).first) && (location.gene?)
+    if (location = Location.includes_location(self.location.position_start).first) && (location.gene?)
       @gene = location.locatable
       return @gene
+    else
+    	return false
     end
   end
   

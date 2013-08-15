@@ -7,10 +7,9 @@ class VariantsController < ApplicationController
     end
     
     #pass the search params to a variable so it can be echoed in the search summary
-    @search_params = params[:q]
+   # @search_params = params[:q]
     #call the search scopes on the Variants
-    @search = Variant.search(params[:q])
-    
+    @search = Variant.search(params[:q])   
     @variants = @search.result.page(params[:page]).per(20)
     @search.build_condition
     
@@ -97,13 +96,26 @@ class VariantsController < ApplicationController
       @gene = Gene.new
       response = @gene.query_biomart(@variant.location.chromosome.name, @variant.location.position_start)
      # if !(@gene = Gene.find_by_ensembl_gene_id(response[:data][0][1]))
-        @gene.build_gene(response)      
+       @gene.build_gene(response)      
      # end
     end
     
     respond_to do |format|
       format.html { redirect_to variants_url }
       format.json { head :no_content }
+    end
+  end
+  
+  def batch_query_biomart
+    @variants = Variant.all
+    @variants.each do |this_variant|
+    	if !this_variant.find_gene
+    		BatchWorker.perform_async(this_variant.id)
+    	end
+    end
+    respond_to do |format|
+    	format.html{redirect_to variants_url}
+    	format.js
     end
   end
 end
