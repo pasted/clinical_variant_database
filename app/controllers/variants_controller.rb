@@ -23,7 +23,8 @@ class VariantsController < ApplicationController
   # GET /variants/1.json
   def show
     @variant = Variant.find(params[:id])
-
+    @gene = @variant.find_gene
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @variant }
@@ -95,9 +96,9 @@ class VariantsController < ApplicationController
       @variant = Variant.find(params[:id])
       @gene = Gene.new
       response = @gene.query_biomart(@variant.location.chromosome.name, @variant.location.position_start)
-     # if !(@gene = Gene.find_by_ensembl_gene_id(response[:data][0][1]))
+      if !(Gene.find_by_ensembl_gene_id(response[:data][0][1]))
        @gene.build_gene(response)      
-     # end
+      end
     end
     
     respond_to do |format|

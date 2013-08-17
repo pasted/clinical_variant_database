@@ -19,6 +19,20 @@ ActiveRecord::Schema.define(:version => 20120731045934) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "disorders", :force => true do |t|
+    t.string   "omim_id"
+    t.string   "disorder_omim_id"
+    t.string   "name"
+    t.string   "disorder_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "disorders_genes", :force => true do |t|
+    t.integer "gene_id"
+    t.integer "disorder_id"
+  end
+
   create_table "genes", :force => true do |t|
     t.string   "external_gene_id"
     t.string   "ensembl_gene_id"

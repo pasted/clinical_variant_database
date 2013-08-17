@@ -84,7 +84,7 @@ class VariantRow
     end
     
     this_variant.quality_records.push(this_quality_record)
-    this_variant.locations.push(this_location)
+    this_variant.location = this_location
     
     this_variant.save!
   end

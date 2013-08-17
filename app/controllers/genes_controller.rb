@@ -2,7 +2,14 @@ class GenesController < ApplicationController
   # GET /genes
   # GET /genes.json
   def index
-    @genes = Gene.all
+
+    if !params[:q]
+      params[:q] = {:order => "descend_by_id"}	
+    end
+    
+    @search = Gene.search(params[:q])   
+    @genes = @search.result.page(params[:page]).per(20)
+    @search.build_condition
 
     respond_to do |format|
       format.html # index.html.erb

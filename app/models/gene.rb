@@ -1,9 +1,9 @@
 class Gene < ActiveRecord::Base
   include Biomart
-  attr_accessible :external_gene_id, :ensembl_gene_id, :transcript_count
+  attr_accessible :external_gene_id, :ensembl_gene_id, :hgnc_id, :transcript_count
 
   has_many :locations, :as => :locatable
-
+  has_and_belongs_to_many :disorders
     
   def convert_strand_string(strand)
   	  if strand == "-1"
@@ -18,27 +18,37 @@ class Gene < ActiveRecord::Base
     ensembl = biomart.datasets["hsapiens_gene_ensembl"]
     
     response = ensembl.search(:filters => {"chromosome_name" => chromosome_name, "start" => start_position.to_i, "end" => start_position.to_i+1, "status" => "KNOWN"},
-	:attributes => ["external_gene_id", "ensembl_gene_id", "chromosome_name", "strand", "start_position", "end_position", "transcript_count"])
+    	:attributes => ["external_gene_id", "ensembl_gene_id", "hgnc_id","chromosome_name", "strand", "start_position", "end_position", "transcript_count"])
     return response
   end
   
   def build_gene(response)
-    if response
-      this_gene = Gene.new
-      this_gene.external_gene_id = response[:data][0][0]
-      this_gene.ensembl_gene_id  = response[:data][0][1]
-      this_gene.transcript_count = response[:data][0][6]
+    if ((response) && !(Gene.find_by_ensembl_gene_id(response[:data][0][1])))
+      self.external_gene_id = response[:data][0][0]
+      self.ensembl_gene_id  = response[:data][0][1]
+      self.hgnc_id					= response[:data][0][2]
+      self.transcript_count = response[:data][0][7]
       
-      this_chromosome = Chromosome.find_by_name(response[:data][0][2])
+      this_chromosome = Chromosome.find_by_name(response[:data][0][3])
       
       this_location = Location.new
-      this_location.strand	     = convert_strand_string(response[:data][0][3])
-      this_location.position_start   = response[:data][0][4]
-      this_location.position_end     = response[:data][0][5]
+      this_location.strand	     = convert_strand_string(response[:data][0][4])
+      this_location.position_start   = response[:data][0][5]
+      this_location.position_end     = response[:data][0][6]
       this_location.chromosome = this_chromosome
       
-      this_gene.locations.push(this_location)
-      this_gene.save!
+      self.locations.push(this_location)
+      self.save!
+      self.reload
+      
+      this_disorder = Disorder.new
+      disorder_response = this_disorder.query_biomart(self.external_gene_id)
+      if ((disorder_response) && !(Disorder.find_by_omim_id(response[:data][0][0])))
+      	this_disorder.build_disorder(disorder_response, self.id)
+      	self.disorders.push(this_disorder)
+      end
+      
+      self.save!
     end
   end
 end

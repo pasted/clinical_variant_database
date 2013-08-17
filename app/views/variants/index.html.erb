@@ -1,6 +1,6 @@
 <h1>Listing variants</h1>
 <%= link_to "Batch query biomart for all variants", batch_query_biomart_variants_path, id: "batch_link", remote: true %>
-<span id="batch_update" style="display:none">TEST</span>
+<span id="batch_update" style="display:none">Updating...</span>
 <table>
   <tr>
     <th>Id</th>
@@ -21,7 +21,7 @@
     <td><%= variant.id %></td>
     <td><%= variant.location.chromosome.name %></td>
     <td><%= variant.name %></td>
-    <td><%= variant.location.position_start %></td>
+    <td><%= link_to variant.location.position_start, "http://www.ensembl.org/Homo_sapiens/Location/View?db=core;r=#{variant.location.chromosome.name}:#{variant.location.position_start}" %></td>
     <td><%= variant.reference %></td>
     <td><%= variant.alternative %></td>
     <td><%= variant.gene_name %></td>

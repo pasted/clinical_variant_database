@@ -2,9 +2,10 @@
 
 <table>
   <tr>
-    <th>External Gene Id</th>
-    <th>Ensembl Gene Id</th>
-    <th>Transcript Count</th>
+    <th><%= sort_link(@search, :id, "Id") %></th>
+    <th><%= sort_link(@search, :external_gene_id, "External Gene Id") %></th>
+    <th><%= sort_link(@search, :ensembl_gene_id, "Ensembl Gene Id") %></th>
+    <th><%= sort_link(@search, :transcript_count, "Transcript Count") %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -12,8 +13,9 @@
 
 <% @genes.each do |gene| %>
   <tr>
+    <td><%= gene.id %></td>
     <td><%= gene.external_gene_id %></td>
-    <td><%= gene.ensembl_gene_id %></td>
+    <td><%= link_to gene.ensembl_gene_id, "http://www.ensembl.org/Homo_sapiens/Location/View?db=core;g=#{gene.ensembl_gene_id}" %></td>
     <td><%= gene.transcript_count %></td>
     <td><%= link_to 'Show', gene %></td>
     <td><%= link_to 'Edit', edit_gene_path(gene) %></td>
@@ -21,6 +23,6 @@
   </tr>
 <% end %>
 </table>
-
-<br />
+<%= paginate @genes %>
+<%= render :partial => 'search_partial' %>
 <%= link_to 'New Gene', new_gene_path %>

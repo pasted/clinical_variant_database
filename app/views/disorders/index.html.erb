@@ -1,0 +1,30 @@
+<h1>Listing disorders</h1>
+
+<table>
+  <tr>
+    <th><%= sort_link(@search, :id, "Id") %></th>
+    <th><%= sort_link(@search, :omim_id, "OMIM Id") %></th>
+    <th><%= sort_link(@search, :disorder_omim_id, "OMIM disorder Id") %></th>
+    <th><%= sort_link(@search, :name, "Disorder name") %></th>
+    <th><%= sort_link(@search, :disorder_type, "Disorder type") %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @disorders.each do |disorder| %>
+  <tr>
+    <td><%= disorder.id %></td>
+    <td><%= link_to disorder.omim_id, "http://www.omim.org/entry/#{disorder.omim_id}" %></td>
+    <td><%= disorder.disorder_omim_id %></td>
+    <td><%= disorder.name %></td>
+    <td><%= disorder.disorder_type %></td>
+    <td><%= link_to 'Show', disorder %></td>
+    <td><%= link_to 'Edit', edit_disorder_path(disorder) %></td>
+    <td><%= link_to 'Destroy', disorder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+<%= paginate @disorders %>
+<%= render :partial => 'search_partial' %>
+<%= link_to 'New Disorder', new_disorder_path %>

@@ -26,6 +26,10 @@ ExomeVariantDatabase::Application.routes.draw do
   
   resources :genes
   
+  resources :disorders
+  
+  resources :samples
+  
   root :to => 'uploads#index'
 
   # The priority is based upon order of creation:
