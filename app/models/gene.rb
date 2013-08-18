@@ -38,17 +38,18 @@ class Gene < ActiveRecord::Base
       this_location.chromosome = this_chromosome
       
       self.locations.push(this_location)
-      self.save!
-      self.reload
-      
-      this_disorder = Disorder.new
-      disorder_response = this_disorder.query_biomart(self.external_gene_id)
-      if ((disorder_response) && !(Disorder.find_by_omim_id(response[:data][0][0])))
-      	this_disorder.build_disorder(disorder_response, self.id)
-      	self.disorders.push(this_disorder)
+      if !(Gene.find_by_ensembl_gene_id(self.ensembl_gene_id))
+      	self.save!
+      	self.reload
+      	this_disorder = Disorder.new
+        disorder_response = this_disorder.query_biomart(self.external_gene_id)
+        if ((disorder_response) && !(Disorder.find_by_omim_id(response[:data][0][0])))
+      	  this_disorder.build_disorder(disorder_response, self.id)
+      	  self.disorders.push(this_disorder)
+        end
+        self.save!
       end
-      
-      self.save!
+
     end
   end
 end

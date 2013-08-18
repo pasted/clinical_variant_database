@@ -14,6 +14,7 @@ ExomeVariantDatabase::Application.routes.draw do
   		match 'search' => 'variants#index', :via => [:get, :post], :as => :search
   	end
     get 'query_biomart', :on => :member
+    get 'query_provean', :on => :member
 
     get 'batch_query_biomart', :on => :collection
   end

@@ -26,6 +26,7 @@
     <td><%= variant.alternative %></td>
     <td><%= variant.gene_name %></td>
     <td><%= link_to 'Biomart', query_biomart_variant_path(variant) %></td>
+    <td><%= link_to 'Provean', query_provean_variant_path(variant) %></td>
     <td><%= link_to 'Show', variant %></td>
     <td><%= link_to 'Edit', edit_variant_path(variant) %></td>
     <td><%= link_to 'Destroy', variant, method: :delete, data: { confirm: 'Are you sure?' } %></td>

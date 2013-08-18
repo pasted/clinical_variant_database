@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731045934) do
+ActiveRecord::Schema.define(:version => 20120731045936) do
 
   create_table "chromosomes", :force => true do |t|
     t.string   "name"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20120731045934) do
   create_table "genes", :force => true do |t|
     t.string   "external_gene_id"
     t.string   "ensembl_gene_id"
+    t.string   "hgnc_id"
     t.integer  "transcript_count"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
@@ -50,6 +51,31 @@ ActiveRecord::Schema.define(:version => 20120731045934) do
     t.string   "locatable_type"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+  end
+
+  create_table "predictions", :force => true do |t|
+    t.integer  "score"
+    t.string   "prediction"
+    t.integer  "seq"
+    t.integer  "cluster"
+    t.integer  "predictable_id"
+    t.string   "predictable_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "protein_sequence_variants", :force => true do |t|
+    t.integer  "variant_id"
+    t.string   "ensembl_protein_id"
+    t.integer  "length"
+    t.string   "strand"
+    t.string   "codon_change"
+    t.integer  "position"
+    t.string   "residue_reference"
+    t.string   "residue_alternative"
+    t.string   "variant_type"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "quality_records", :force => true do |t|

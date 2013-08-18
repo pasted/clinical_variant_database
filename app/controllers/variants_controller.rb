@@ -96,7 +96,9 @@ class VariantsController < ApplicationController
       @variant = Variant.find(params[:id])
       @gene = Gene.new
       response = @gene.query_biomart(@variant.location.chromosome.name, @variant.location.position_start)
-      if !(Gene.find_by_ensembl_gene_id(response[:data][0][1]))
+      if Gene.find_by_ensembl_gene_id(response[:data][0][1])
+      	
+      else
        @gene.build_gene(response)      
       end
     end
@@ -107,12 +109,32 @@ class VariantsController < ApplicationController
     end
   end
   
+  def query_provean
+    if params[:id]
+      @variant = Variant.find(params[:id])
+      parsed_records = @variant.query_provean
+      @variant.build_provean_records(parsed_records)
+    end
+    
+    respond_to do |format|
+      format.html { redirect_to variants_url }
+      format.json { head :no_content }
+    end
+  end
+  
   def batch_query_biomart
-    @variants = Variant.all
-    @variants.each do |this_variant|
-    	if !this_variant.find_gene
-    		BatchWorker.perform_async(this_variant.id)
-    	end
+    variants = Variant.select(:all).pluck(:id)
+    variant_array = variants.each_slice(20).to_a
+    last_array = variant_array.last
+    last_array_len = last_array.length
+    i = 20 - last_array_len
+    padding = Array.new(i)
+    last_array.concat(padding)
+    transpose_array = variant_array.transpose
+    transpose_array.each do |variant_set|
+
+    				BatchWorker.perform_async(variant_set)
+   
     end
     respond_to do |format|
     	format.html{redirect_to variants_url}

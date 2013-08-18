@@ -10,7 +10,11 @@ gem 'activerecord-postgres-hstore'
 gem 'ransack'
 gem 'kaminari'
 gem 'biomart'
+gem 'mechanize'
+gem 'retryable'
+
 gem 'sidekiq'
+gem 'redis-semaphore'
 gem 'sinatra', require: false
 gem 'slim'
 
