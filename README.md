@@ -20,6 +20,55 @@ Requires:
  * [Ruby 1.9.2 or newer](http://www.ruby-lang.org/en/)
  * [Rails 3.2](http://rubyonrails.org/)
 
+Clone the repository to your web server's public directory, initiallizing Git if required;
+
+```bash
+	git init
+	git clone https://github.com/pasted/exome_variant_database.git
+```
+
+The config/database.yml file is not included in the repository, the template is included below(along with the increased number of 
+database connections for use with Sidekiq / Redis). Modify to include your database username and password, then save in the config
+directory.
+
+```ruby
+
+development:
+  adapter: postgresql
+  encoding: utf8
+  reconnect: false
+  database: evd_development
+  pool: 25
+  username: 
+  password: 
+  host: localhost
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  adapter: postgresql
+  encoding: utf8
+  reconnect: false
+  database: evd_test
+  pool: 25
+  username: 
+  password: 
+  host: localhost
+
+production:
+  adapter: postgresql
+  encoding: utf8
+  reconnect: false
+  database: evd_production
+  pool: 25
+  username: 
+  password: 
+  host: localhost
+
+```
+Then run the following commands in the app directory;
+ 
 ```bash
 	bundle install
 	rake db:create
