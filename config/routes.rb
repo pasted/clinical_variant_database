@@ -1,5 +1,5 @@
 require 'sidekiq/web'
-ExomeVariantDatabase::Application.routes.draw do
+ClinicalVariantDatabase::Application.routes.draw do
   resources :uploads do
     get 'parse', :on => :member 
   end

@@ -1,4 +1,4 @@
-#Exome Variant Database
+#Clinical Variant Database
 Rails application for storing and parsing clinical exome VCF files.
 Gene annotations can be retrieved via Biomart integration from Ensembl dataset.
 
@@ -24,7 +24,7 @@ Clone the repository to your web server's public directory, initiallizing Git if
 
 ```bash
 	git init
-	git clone https://github.com/pasted/exome_variant_database.git
+	git clone https://github.com/pasted/clinical_variant_database.git
 ```
 
 The **config/database.yml** file is not included in the repository, the template is included below(along with the increased number of 
