@@ -27,7 +27,7 @@ Clone the repository to your web server's public directory, initiallizing Git if
 	git clone https://github.com/pasted/exome_variant_database.git
 ```
 
-The config/database.yml file is not included in the repository, the template is included below(along with the increased number of 
+The **config/database.yml** file is not included in the repository, the template is included below(along with the increased number of 
 database connections for use with Sidekiq / Redis). Modify to include your database username and password, then save in the config
 directory.
 
@@ -74,4 +74,20 @@ Then run the following commands in the app directory;
 	rake db:create
 	rake db:migrate
 	rake db:seed
+```
+To start the application, first start up Redis by typing the following in the directory that you have installed redis.
+
+```bash
+	redis-server redis.conf
+```
+Then start Sidekiq in the application directory
+
+```bash
+ 	 bundle exec sidekiq
+```
+More information on Sidekiq can be found on it's [homepage](http://sidekiq.org).
+Finally if not using another webserver, such as Apache - start Rails webrick server (in the application directory)
+
+```bash
+	rails s
 ```
