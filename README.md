@@ -14,7 +14,11 @@ Gene annotations can be retrieved via Biomart integration from Ensembl dataset.
 
 ==Installation
 
-Requires PostgreSQL[http://http://www.postgresql.org/], Redis[http://redis.io] and Rails 3.2[http://rubyonrails.org/]
+Requires 
+*PostgreSQL[http://http://www.postgresql.org/]
+*Redis[http://redis.io]
+*Ruby 1.9.2 or newer[http://www.ruby-lang.org/en/]
+*Rails 3.2[http://rubyonrails.org/]
 
 	bundle install
 	rake db:create
