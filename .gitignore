@@ -12,6 +12,7 @@
 /public/system/**
 /public/assets/**
 /config/database.yml
+/log/**
 
 *.rbc
 *.sassc
