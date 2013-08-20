@@ -12,6 +12,8 @@ Gene annotations can be retrieved via Biomart integration from Ensembl dataset.
 - [x] Batch update of Gene/Disorder annotation using Sidekick / redis workers.
 - [ ] Relationships between Samples to reflect parent-offspring by Closure trees.
 
+![Web UI](https://github.com/pasted/clinical_variant_database/raw/master/lib/assets/cvd_variants.png)
+
 ##Installation
 
 Requires: 
