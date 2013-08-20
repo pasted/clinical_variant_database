@@ -1,10 +1,13 @@
 class Gene < ActiveRecord::Base
   include Biomart
   attr_accessible :external_gene_id, :ensembl_gene_id, :hgnc_id, :transcript_count
-
+  
   has_many :locations, :as => :locatable
   has_and_belongs_to_many :disorders
-    
+  
+  before_destroy :delete_locatable
+  
+  
   def convert_strand_string(strand)
   	  if strand == "-1"
   	    return "-"
@@ -60,4 +63,13 @@ class Gene < ActiveRecord::Base
       duplicates.each{|leftover| leftover.destroy} 
     end
   end
+
+  protected
+  
+  def delete_locatable
+  	if self.locations.length > 0
+  		self.locations.delete_all
+  	end
+  end
+  
 end

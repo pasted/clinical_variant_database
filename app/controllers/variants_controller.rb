@@ -45,6 +45,8 @@ class VariantsController < ApplicationController
   # GET /variants/1/edit
   def edit
     @variant = Variant.find(params[:id])
+    @chromosomes = Chromosome.all
+    
   end
 
   # POST /variants

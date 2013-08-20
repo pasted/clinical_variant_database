@@ -1,7 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<%= @upload.inspect %>
+Upload <%=link_to @upload.upload_file_name %> has been parsed.
 <br></br>
-<%= @parser.inspect %>
-<%= link_to @upload.upload_file_name %>
+<%= @parser.variant_rows.length %> rows have been found.
+
+<%= link_to 'List variants', variants_path %>
 

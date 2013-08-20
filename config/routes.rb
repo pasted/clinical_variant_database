@@ -18,19 +18,37 @@ ClinicalVariantDatabase::Application.routes.draw do
 
     get 'batch_query_biomart', :on => :collection
     
+    resources :locations
   end
   
   mount Sidekiq::Web, at: "/sidekiq"
   
   resources :quality_records
 
-  resources :samples
+  resources :samples do
+  	collection do
+  		match 'search' => 'samples#index', :via => [:get, :post], :as => :search
+  	end
+  end
   
-  resources :genes
+  resources :genes do
+  	collection do
+  		match 'search' => 'genes#index', :via => [:get, :post], :as => :search
+  	end
+  	resources :locations
+  end
   
-  resources :disorders
+  resources :disorders do
+  	collection do
+  		match 'search' => 'disorders#index', :via => [:get, :post], :as => :search
+  	end
+  end
   
-  resources :samples
+  resources :samples do
+  	collection do
+  		match 'search' => 'samples#index', :via => [:get, :post], :as => :search
+  	end
+  end
   
   resource :protein_sequence_variants
   

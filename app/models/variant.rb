@@ -5,6 +5,9 @@ class Variant < ActiveRecord::Base
   has_one :location, :as => :locatable
   has_many :quality_records, dependent: :destroy
   has_many :protein_sequence_variants, dependent: :destroy
+  
+  before_destroy :delete_locatable
+  
 
   def find_gene
     if (location = Location.includes_location(self.location.position_start).first) && (location.gene?)
@@ -67,5 +70,14 @@ class Variant < ActiveRecord::Base
   	end
   	self.save!
   end
+  
+  protected
+  
+  def delete_locatable
+  	if self.location
+  			self.location.delete
+  	end
+  end 
+
   
 end

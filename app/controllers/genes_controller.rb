@@ -100,5 +100,5 @@ class GenesController < ApplicationController
       format.json { render json: @genes }
     end
   end
-  
+ 
 end
