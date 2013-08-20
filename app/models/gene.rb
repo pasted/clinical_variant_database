@@ -52,4 +52,12 @@ class Gene < ActiveRecord::Base
 
     end
   end
+  
+  def self.remove_duplicates 
+    grouped = all.group_by{|model| [model.ensembl_gene_id] }
+    grouped.values.each do |duplicates|
+      first_one = duplicates.shift 
+      duplicates.each{|leftover| leftover.destroy} 
+    end
+  end
 end

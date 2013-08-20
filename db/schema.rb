@@ -54,20 +54,19 @@ ActiveRecord::Schema.define(:version => 20120731045936) do
   end
 
   create_table "predictions", :force => true do |t|
+    t.integer  "protein_sequence_variant_id"
     t.integer  "score"
     t.string   "prediction"
     t.integer  "seq"
     t.integer  "cluster"
-    t.integer  "predictable_id"
-    t.string   "predictable_type"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   create_table "protein_sequence_variants", :force => true do |t|
     t.integer  "variant_id"
     t.string   "ensembl_protein_id"
-    t.integer  "length"
+    t.integer  "sequence_length"
     t.string   "strand"
     t.string   "codon_change"
     t.integer  "position"
@@ -88,10 +87,11 @@ ActiveRecord::Schema.define(:version => 20120731045936) do
   end
 
   create_table "samples", :force => true do |t|
+    t.integer  "quality_record_id"
     t.string   "name"
     t.hstore   "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "uploads", :force => true do |t|

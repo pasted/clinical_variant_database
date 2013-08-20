@@ -1,15 +1,21 @@
 <h1>Listing variants</h1>
-<%= link_to "Batch query biomart for all variants", batch_query_biomart_variants_path, id: "batch_link", remote: true %>
-<span id="batch_update" style="display:none">Updating...</span>
+<% if Sidekiq::Client.registered_workers.length == 0 %>
+<span id="batch_button"><%= button_to "Batch query biomart", batch_query_biomart_variants_path, method: :get, id: "batch_link", remote: true, class: 'btn btn-success' %></span>
+<span id="batch_update" style="display:none">Updating...  check <%= link_to "Sidekiq", "/sidekiq"  %> for current worker status</span>
+<% else %>
+<span id="batch_update"><%= image_tag("loader.gif") %>Updating... <%= Sidekiq::Client.registered_workers.length %> worker(s) in Queue. Check <%= link_to "Sidekiq", "/sidekiq"  %> for status</span>
+<% end %>
 <table>
   <tr>
-    <th>Id</th>
-    <th><%= sort_link(@search, :location_chromosome_name, "Chromosome") %></th>
-    <th><%= sort_link(@search, :name, "Variant name") %></th>
-    <th><%= sort_link(@search, :location_position_start, "Position start") %></th>
-    <th><%= sort_link(@search, :reference, "Reference") %></th>
-    <th><%= sort_link(@search, :alternative, "Alternative") %></th>
-    <th>Gene</th>
+    <th class="header" ><%= sort_link(@search, :id, "Id") %></th>
+    <th class="header" ><%= sort_link(@search, :location_chromosome_name, "Chromosome") %></th>
+    <th class="header" ><%= sort_link(@search, :name, "Variant name") %></th>
+    <th class="header" ><%= sort_link(@search, :location_position_start, "Position start") %></th>
+    <th class="header" ><%= sort_link(@search, :reference, "Reference") %></th>
+    <th class="header" ><%= sort_link(@search, :alternative, "Alternative") %></th>
+    <th class="header" >Gene</th>
+    <th class="header" >Provean</th>
+    <th></th>
     <th></th>
     <th></th>
     <th></th>
@@ -25,14 +31,19 @@
     <td><%= variant.reference %></td>
     <td><%= variant.alternative %></td>
     <td><%= variant.gene_name %></td>
-    <td><%= link_to 'Biomart', query_biomart_variant_path(variant) %></td>
-    <td><%= link_to 'Provean', query_provean_variant_path(variant) %></td>
-    <td><%= link_to 'Show', variant %></td>
-    <td><%= link_to 'Edit', edit_variant_path(variant) %></td>
-    <td><%= link_to 'Destroy', variant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><% if !variant.protein_sequence_variants.empty? %>
+    <% variant.protein_sequence_variants.pluck(:id).each do |id| %>
+    <%= link_to id, protein_sequence_variants_path(:id => id) %>
+    <% end %>
+    <% end %>
+    </td>
+    <td><%= button_to 'Biomart', query_biomart_variant_path(variant), method: :get, class: 'btn btn-primary' %></td>
+    <td><%= button_to 'Provean', query_provean_variant_path(variant), method: :get, class: 'btn btn-primary' %></td>
+    <td><%= button_to 'Show', variant, method: :get, class: 'btn btn-success' %></td>
+    <td><%= button_to 'Edit', edit_variant_path(variant), method: :get, class: 'btn btn-warning' %></td>
+    <td><%= button_to 'Destroy', variant, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
   </tr>
 <% end %>
 </table>
 <%= paginate @variants %>
 <%= render :partial => 'search_partial' %>
-<%= link_to 'New Variant', new_variant_path %>

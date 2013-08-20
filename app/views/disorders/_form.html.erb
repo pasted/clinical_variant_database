@@ -12,8 +12,20 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :omim_id %><br />
+    <%= f.text_field :omim_id %>
+  </div>
+  <div class="field">
+    <%= f.label :disorder_omim_id %><br />
+    <%= f.text_field :disorder_omim_id %>
+  </div>
+  <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :disorder_type %><br />
+    <%= f.text_field :disorder_type %>
   </div>
   <div class="actions">
     <%= f.submit %>

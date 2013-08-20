@@ -12,9 +12,18 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.label :external_gene_id %><br />
+    <%= f.text_field :external_gene_id %>
   </div>
+  <div class="field">
+    <%= f.label :ensembl_gene_id %><br />
+    <%= f.text_field :ensembl_gene_id %>
+  </div>
+  <div class="field">
+    <%= f.label :transcript_count %><br />
+    <%= f.text_field :transcript_count %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

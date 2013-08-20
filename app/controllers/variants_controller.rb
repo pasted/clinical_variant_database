@@ -96,9 +96,8 @@ class VariantsController < ApplicationController
       @variant = Variant.find(params[:id])
       @gene = Gene.new
       response = @gene.query_biomart(@variant.location.chromosome.name, @variant.location.position_start)
-      if Gene.find_by_ensembl_gene_id(response[:data][0][1])
-      	
-      else
+      
+      if (response[:data].length != 0) && !(Gene.find_by_ensembl_gene_id(response[:data][0][1]))
        @gene.build_gene(response)      
       end
     end
@@ -134,8 +133,9 @@ class VariantsController < ApplicationController
     transpose_array.each do |variant_set|
 
     				BatchWorker.perform_async(variant_set)
-   
+    				Gene.remove_duplicates
     end
+    
     respond_to do |format|
     	format.html{redirect_to variants_url}
     	format.js

@@ -1,12 +1,12 @@
 <h1>Listing disorders</h1>
-
+<%= button_to 'New Disorder', new_disorder_path, method: :get, class: 'btn btn-success' %>
 <table>
   <tr>
-    <th><%= sort_link(@search, :id, "Id") %></th>
-    <th><%= sort_link(@search, :omim_id, "OMIM Id") %></th>
-    <th><%= sort_link(@search, :disorder_omim_id, "OMIM disorder Id") %></th>
-    <th><%= sort_link(@search, :name, "Disorder name") %></th>
-    <th><%= sort_link(@search, :disorder_type, "Disorder type") %></th>
+    <th class="header" ><%= sort_link(@search, :id, "Id") %></th>
+    <th class="header" ><%= sort_link(@search, :omim_id, "OMIM Id") %></th>
+    <th class="header" ><%= sort_link(@search, :disorder_omim_id, "OMIM disorder Id") %></th>
+    <th class="header" ><%= sort_link(@search, :name, "Disorder name") %></th>
+    <th class="header" ><%= sort_link(@search, :disorder_type, "Disorder type") %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -19,12 +19,12 @@
     <td><%= disorder.disorder_omim_id %></td>
     <td><%= disorder.name %></td>
     <td><%= disorder.disorder_type %></td>
-    <td><%= link_to 'Show', disorder %></td>
-    <td><%= link_to 'Edit', edit_disorder_path(disorder) %></td>
-    <td><%= link_to 'Destroy', disorder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= button_to 'Show', disorder, method: :get, class: 'btn btn-success' %></td>
+    <td><%= button_to 'Edit', edit_disorder_path(disorder), method: :get, class: 'btn btn-warning' %></td>
+    <td><%= button_to 'Destroy', disorder, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
   </tr>
 <% end %>
 </table>
 <%= paginate @disorders %>
 <%= render :partial => 'search_partial' %>
-<%= link_to 'New Disorder', new_disorder_path %>
+

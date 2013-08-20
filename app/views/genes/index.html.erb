@@ -1,11 +1,11 @@
 <h1>Listing genes</h1>
-
+<%= button_to 'New Gene', new_gene_path, method: :get, class: 'btn btn-success' %>
 <table>
   <tr>
-    <th><%= sort_link(@search, :id, "Id") %></th>
-    <th><%= sort_link(@search, :external_gene_id, "External Gene Id") %></th>
-    <th><%= sort_link(@search, :ensembl_gene_id, "Ensembl Gene Id") %></th>
-    <th><%= sort_link(@search, :transcript_count, "Transcript Count") %></th>
+    <th class="header" ><%= sort_link(@search, :id, "Id") %></th>
+    <th class="header" ><%= sort_link(@search, :external_gene_id, "External Gene Id") %></th>
+    <th class="header" ><%= sort_link(@search, :ensembl_gene_id, "Ensembl Gene Id") %></th>
+    <th class="header" ><%= sort_link(@search, :transcript_count, "Transcript Count") %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -17,12 +17,11 @@
     <td><%= gene.external_gene_id %></td>
     <td><%= link_to gene.ensembl_gene_id, "http://www.ensembl.org/Homo_sapiens/Location/View?db=core;g=#{gene.ensembl_gene_id}" %></td>
     <td><%= gene.transcript_count %></td>
-    <td><%= link_to 'Show', gene %></td>
-    <td><%= link_to 'Edit', edit_gene_path(gene) %></td>
-    <td><%= link_to 'Destroy', gene, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= button_to 'Show', gene, method: :get, class: 'btn btn-success' %></td>
+    <td><%= button_to 'Edit', edit_gene_path(gene), method: :get, class: 'btn btn-warning' %></td>
+    <td><%= button_to 'Destroy', gene, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
   </tr>
 <% end %>
 </table>
 <%= paginate @genes %>
 <%= render :partial => 'search_partial' %>
-<%= link_to 'New Gene', new_gene_path %>

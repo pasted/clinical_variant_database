@@ -2,9 +2,9 @@
 
 <table>
   <tr>
-    <th><%= sort_link(@search, :id, "Id") %></th>
-    <th><%= sort_link(@search, :name, "Name") %></th>
-    <th><%= sort_link(@search, :data, "Data") %></th>
+    <th class="header" ><%= sort_link(@search, :id, "Id") %></th>
+    <th class="header" ><%= sort_link(@search, :name, "Name") %></th>
+    <th class="header" ><%= sort_link(@search, :data, "Data") %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,9 +15,9 @@
     <td><%= sample.id %></td>
     <td><%= sample.name %></td>
     <td><%= sample.data %></td>
-    <td><%= link_to 'Show', sample %></td>
-    <td><%= link_to 'Edit', edit_sample_path(sample) %></td>
-    <td><%= link_to 'Destroy', sample, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= button_to 'Show', sample, method: :get, class: 'btn btn-success' %></td>
+    <td><%= button_to 'Edit', edit_sample_path(sample), method: :get, class: 'btn btn-warning' %></td>
+    <td><%= button_to 'Destroy', sample, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
   </tr>
 <% end %>
 </table>

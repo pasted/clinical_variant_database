@@ -1,5 +1,5 @@
 #Clinical Variant Database
-Rails application for storing and parsing clinical exome VCF files.
+Rails application for storing and parsing clinical VCF files.
 Gene annotations can be retrieved via Biomart integration from Ensembl dataset.
 
 ##Features
@@ -37,7 +37,7 @@ development:
   adapter: postgresql
   encoding: utf8
   reconnect: false
-  database: evd_development
+  database: cvd_development
   pool: 25
   username: 
   password: 
@@ -50,7 +50,7 @@ test:
   adapter: postgresql
   encoding: utf8
   reconnect: false
-  database: evd_test
+  database: cvd_test
   pool: 25
   username: 
   password: 
@@ -60,7 +60,7 @@ production:
   adapter: postgresql
   encoding: utf8
   reconnect: false
-  database: evd_production
+  database: cvd_production
   pool: 25
   username: 
   password: 

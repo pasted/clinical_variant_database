@@ -9,7 +9,7 @@ ClinicalVariantDatabase::Application.routes.draw do
   resources :chromosomes
 
   resources :variants do
-
+  	
   	collection do
   		match 'search' => 'variants#index', :via => [:get, :post], :as => :search
   	end
@@ -17,6 +17,7 @@ ClinicalVariantDatabase::Application.routes.draw do
     get 'query_provean', :on => :member
 
     get 'batch_query_biomart', :on => :collection
+    
   end
   
   mount Sidekiq::Web, at: "/sidekiq"
@@ -30,6 +31,9 @@ ClinicalVariantDatabase::Application.routes.draw do
   resources :disorders
   
   resources :samples
+  
+  resource :protein_sequence_variants
+  
   
   root :to => 'uploads#index'
 

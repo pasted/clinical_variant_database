@@ -1,25 +1,21 @@
 <p id="notice"><%= notice %></p>
 <p>
   <b>Id:</b>
-  <%= @disorder.id %>
+  <%= @gene.id %>
 </p>
 <p>
-  <b>OMIM Id:</b>
-  <%= @disorder.omim_id %>
+  <b>External Gene Id:</b>
+  <%= @gene.external_gene_id %>
 </p>
 <p>
-  <b>Disorder OMIM Id:</b>
-  <%= @disorder.disorder_omim_id %>
+  <b>Ensembl Gene Id:</b>
+  <%= @gene.ensembl_gene_id %>
 </p>
 <p>
-  <b>Name:</b>
-  <%= @disorder.name %>
-</p>
-<p>
-  <b>Type:</b>
-  <%= @disorder.type %>
+  <b>Transcript Count:</b>
+  <%= @gene.transcript_count %>
 </p>
 
 
-<%= link_to 'Edit', edit_disorder_path(@disorder) %> |
-<%= link_to 'Back', disorders_path %>
+<%= link_to 'Edit', edit_gene_path(@gene) %> |
+<%= link_to 'Back', genes_path %>

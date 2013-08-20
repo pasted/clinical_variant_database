@@ -56,7 +56,7 @@ class Variant < ActiveRecord::Base
   	this_protein_variant = ProteinSequenceVariant.new
   	parsed_records.each do |row|
   		this_protein_variant.ensembl_protein_id 	= row["PROTEIN_ID"]
-  		this_protein_variant.length								= row["LENGTH"]
+  		this_protein_variant.sequence_length								= row["LENGTH"]
   		this_protein_variant.strand								= row["STRAND"]
   		this_protein_variant.codon_change					= row["CODON_CHANGE"]
   		this_protein_variant.position							= row["POS"]

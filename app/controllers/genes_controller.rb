@@ -2,10 +2,6 @@ class GenesController < ApplicationController
   # GET /genes
   # GET /genes.json
   def index
-
-    if !params[:q]
-      params[:q] = {:order => "descend_by_id"}	
-    end
     
     @search = Gene.search(params[:q])   
     @genes = @search.result.page(params[:page]).per(20)

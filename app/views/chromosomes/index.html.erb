@@ -2,7 +2,8 @@
 
 <table>
   <tr>
-    <th>Name</th>
+    <th class="header" >Id</th>
+    <th class="header" >Name</th>
     <th></th>
     <th></th>
     <th></th>
@@ -10,14 +11,12 @@
 
 <% @chromosomes.each do |chromosome| %>
   <tr>
+    <td><%= chromosome.id %></td>
     <td><%= chromosome.name %></td>
-    <td><%= link_to 'Show', chromosome %></td>
-    <td><%= link_to 'Edit', edit_chromosome_path(chromosome) %></td>
-    <td><%= link_to 'Destroy', chromosome, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= button_to 'Show', chromosome, method: :get, class: 'btn btn-success' %></td>
+    <td><%= button_to 'Edit', edit_chromosome_path(chromosome), method: :get, class: 'btn btn-warning' %></td>
+    <td><%= button_to 'Destroy', chromosome, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
   </tr>
 <% end %>
 </table>
 
-<br />
-
-<%= link_to 'New Chromosome', new_chromosome_path %>

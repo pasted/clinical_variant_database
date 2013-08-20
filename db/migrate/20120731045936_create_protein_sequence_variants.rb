@@ -3,7 +3,7 @@ class CreateProteinSequenceVariants < ActiveRecord::Migration
     create_table :protein_sequence_variants do |t|
       t.integer :variant_id
       t.string :ensembl_protein_id
-      t.integer :length
+      t.integer :sequence_length
       t.string :strand
       t.string :codon_change
       t.integer :position
