@@ -137,7 +137,7 @@ class VariantsController < ApplicationController
     				BatchWorker.perform_async(variant_set)
     				Gene.remove_duplicates
     end
-    
+    Gene.remove_duplicates
     respond_to do |format|
     	format.html{redirect_to variants_url}
     	format.js
