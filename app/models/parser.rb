@@ -5,7 +5,7 @@ class Parser
   extend ActiveModel::Translation
   extend ActiveModel::Naming
 
-  attr_accessor :headers, :sample_names, :variant_rows
+  attr_accessor :headers, :sample_names, :variant_rows, :upload_id
   	  
   def initialize(params={})
       params.each do |attr, value|
@@ -37,7 +37,7 @@ class Parser
       self.headers.push(line)	  
     else
       new_variant_row = VariantRow.new
-      new_variant_row.parse_row(line, self.sample_names)
+      new_variant_row.parse_row(line, self.sample_names, self.upload_id)
       self.variant_rows.push(new_variant_row)
     end
     return true

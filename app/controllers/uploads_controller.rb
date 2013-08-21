@@ -87,6 +87,7 @@ class UploadsController < ApplicationController
   
   def parse
     @upload = Upload.find(params[:id])
+   
     @parser = @upload.parse_vcf
     respond_to do |format|
       format.html

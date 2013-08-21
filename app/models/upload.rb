@@ -4,7 +4,7 @@ class Upload < ActiveRecord::Base
 
   include Rails.application.routes.url_helpers
   
-  has_many :qualities
+  has_many :quality_records
 
   def to_jq_upload
     {
@@ -26,6 +26,7 @@ class Upload < ActiveRecord::Base
     this_file_path = self.stored_file_path
     file_handle = File.open(this_file_path, 'r')
     vcf = Parser.new
+    vcf.upload_id = self.id
     vcf.headers = Array.new
     while (line = file_handle.gets)
       vcf.parse_line(line)  

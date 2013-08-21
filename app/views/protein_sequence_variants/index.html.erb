@@ -1,0 +1,55 @@
+<h1>Listing protein sequence variants</h1>
+
+<table>
+  <tr>
+    <th class="header" ><%= sort_link(@search, :id, "Id") %></th>
+    <th class="header" ><%= sort_link(@search, :variant_id, "Variant Id") %></th>
+    <th class="header" ><%= sort_link(@search, :ensembl_protein_id, "Ensembl protein Id") %></th>
+    <th class="header" ><%= sort_link(@search, :sequence_length, "Sequence length") %></th>
+    <th class="header" ><%= sort_link(@search, :strand, "Strand") %></th>
+    <th class="header" ><%= sort_link(@search, :codon_change, "Codon change") %></th>
+    <th class="header" ><%= sort_link(@search, :position, "Position") %></th>
+    <th class="header" ><%= sort_link(@search, :residue_reference, "Residue reference") %></th>
+    <th class="header" ><%= sort_link(@search, :residue_alternative, "Alternative reference") %></th>
+    <th class="header" ><%= sort_link(@search, :variant_type, "Variant type") %></th>
+    <th class="header" ><%= sort_link(@search, :provean_score, "Provean score") %></th>
+    <th class="header" ><%= sort_link(@search, :provean_prediction, "Provean prediction") %></th>
+    <th class="header" ><%= sort_link(@search, :provean_seq, "Provean seq") %></th>
+    <th class="header" ><%= sort_link(@search, :sift_score, "Sift score") %></th>
+    <th class="header" ><%= sort_link(@search, :sift_prediction, "Sift prediction") %></th>
+    <th class="header" ><%= sort_link(@search, :sift_median_info, "Sift mdeian info") %></th>
+    <th class="header" ><%= sort_link(@search, :sift_seq, "Sift seq") %></th>
+    <th class="header" ><%= sort_link(@search, :db_snp_id, "DB SNP Id") %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @protein_sequence_variants.each do |protein_sequence_variant| %>
+  <tr>
+    <td><%= protein_sequence_variant.id %></td>
+    <td><%= protein_sequence_variant.variant_id %></td>
+    <td><%= protein_sequence_variant.ensembl_protein_id %></td>
+    <td><%= protein_sequence_variant.sequence_length %></td>
+    <td><%= protein_sequence_variant.strand %></td>
+    <td><%= protein_sequence_variant.codon_change %></td>
+    <td><%= protein_sequence_variant.position %></td>
+    <td><%= protein_sequence_variant.residue_reference %></td>
+    <td><%= protein_sequence_variant.residue_alternative %></td>
+    <td><%= protein_sequence_variant.variant_type %></td>
+    <td><%= protein_sequence_variant.provean_score %></td>
+    <td><%= protein_sequence_variant.provean_prediction %></td>
+    <td><%= protein_sequence_variant.provean_seq %></td>
+    <td><%= protein_sequence_variant.sift_score %></td>
+    <td><%= protein_sequence_variant.sift_prediction %></td>
+    <td><%= protein_sequence_variant.sift_median_info %></td>
+    <td><%= protein_sequence_variant.sift_seq %></td>
+    <td><%= protein_sequence_variant.db_snp_id %></td>
+    <td><%= button_to 'Show', protein_sequence_variant, method: :get, class: 'btn btn-success' %></td>
+    <td><%= button_to 'Destroy', protein_sequence_variant, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+  </tr>
+<% end %>
+</table>
+<%= paginate @protein_sequence_variants %>
+<%= render :partial => 'search_partial' %>
+

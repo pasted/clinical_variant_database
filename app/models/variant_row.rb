@@ -50,10 +50,10 @@ class VariantRow
     end
   end
 
-  def build_records
+  def build_records(upload_id)
    
     this_chromosome = Chromosome.find_by_name(self.chrom)
-    
+    this_upload = Upload.find(upload_id)
     if (found_location = Location.find_by_position_start(self.pos.to_i)) && (found_location.locatable_type == "Variant")
       this_variant = found_location.locatable
     else
@@ -83,13 +83,15 @@ class VariantRow
       end
     end
     
+    this_upload.quality_records.push(this_quality_record)
     this_variant.quality_records.push(this_quality_record)
     this_variant.location = this_location
     
+    this_upload.save!
     this_variant.save!
   end
   
-  def parse_row(line, sample_names)
+  def parse_row(line, sample_names, upload_id)
       line_array = line.chomp.split("\t")
       self.chrom = line_array[0].chomp.upcase
       self.pos = line_array[1].chomp
@@ -104,7 +106,7 @@ class VariantRow
       self.sample_keys = self.format.split(":")
 
       self.parse_samples(line_array, sample_names)
-      self.build_records
+      self.build_records(upload_id)
   end
   
 

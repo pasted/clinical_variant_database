@@ -50,7 +50,11 @@ ClinicalVariantDatabase::Application.routes.draw do
   	end
   end
   
-  resource :protein_sequence_variants
+  resources :protein_sequence_variants do
+  	collection do
+  		match 'search' => 'protein_sequence_variants#index', :via => [:get, :post], :as => :search
+  	end
+  end
   
   
   root :to => 'uploads#index'

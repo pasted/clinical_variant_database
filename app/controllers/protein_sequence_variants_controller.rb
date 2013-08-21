@@ -2,8 +2,11 @@ class ProteinSequenceVariantsController < ApplicationController
   # GET /protein_sequence_variants
   # GET /protein_sequence_variants.json
   def index
-    @protein_sequence_variants = ProteinSequenceVariant.all
-
+    
+    @search = ProteinSequenceVariant.search(params[:q])   
+    @protein_sequence_variants = @search.result.page(params[:page]).per(20)
+    @search.build_condition
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @protein_sequence_variants }

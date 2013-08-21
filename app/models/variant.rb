@@ -58,14 +58,23 @@ class Variant < ActiveRecord::Base
   def build_provean_records(parsed_records)
   	this_protein_variant = ProteinSequenceVariant.new
   	parsed_records.each do |row|
-  		this_protein_variant.ensembl_protein_id 	= row["PROTEIN_ID"]
-  		this_protein_variant.sequence_length								= row["LENGTH"]
-  		this_protein_variant.strand								= row["STRAND"]
-  		this_protein_variant.codon_change					= row["CODON_CHANGE"]
-  		this_protein_variant.position							= row["POS"]
-  		this_protein_variant.residue_reference		= row["RESIDUE_REF"]
-  		this_protein_variant.residue_alternative  = row["RESIDUE_ALT"]
-  		this_protein_variant.variant_type					= row["TYPE"]
+  		this_protein_variant.ensembl_protein_id 	= row[3]
+  		this_protein_variant.sequence_length			= row[4]
+  		this_protein_variant.strand								= row[5]
+  		this_protein_variant.codon_change					= row[6]
+  		this_protein_variant.position							= row[7]
+  		this_protein_variant.residue_reference		= row[8]
+  		this_protein_variant.residue_alternative  = row[9]
+  		this_protein_variant.variant_type					= row[10]
+  		this_protein_variant.provean_score				= row[11]
+  		this_protein_variant.provean_prediction		= row[12]
+  		this_protein_variant.provean_seq					= row[13]
+  		this_protein_variant.provean_cluster			= row[14]
+  		this_protein_variant.sift_score						= row[15]
+  		this_protein_variant.sift_prediction			= row[16]
+  		this_protein_variant.sift_median_info			= row[17]
+  		this_protein_variant.sift_seq							= row[18]
+  		this_protein_variant.db_snp_id						= row[19]
   	  self.protein_sequence_variants.push(this_protein_variant)
   	end
   	self.save!

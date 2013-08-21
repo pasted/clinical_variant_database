@@ -53,16 +53,6 @@ ActiveRecord::Schema.define(:version => 20120731045936) do
     t.datetime "updated_at",     :null => false
   end
 
-  create_table "predictions", :force => true do |t|
-    t.integer  "protein_sequence_variant_id"
-    t.integer  "score"
-    t.string   "prediction"
-    t.integer  "seq"
-    t.integer  "cluster"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
-  end
-
   create_table "protein_sequence_variants", :force => true do |t|
     t.integer  "variant_id"
     t.string   "ensembl_protein_id"
@@ -73,6 +63,15 @@ ActiveRecord::Schema.define(:version => 20120731045936) do
     t.string   "residue_reference"
     t.string   "residue_alternative"
     t.string   "variant_type"
+    t.string   "provean_score"
+    t.string   "provean_prediction"
+    t.string   "provean_seq"
+    t.string   "provean_cluster"
+    t.string   "sift_score"
+    t.string   "sift_prediction"
+    t.string   "sift_median_info"
+    t.string   "sift_seq"
+    t.string   "db_snp_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
