@@ -1,6 +1,7 @@
 <h1>Listing variants</h1>
 <% if Sidekiq::Client.registered_workers.length == 0 %>
 <span id="batch_button"><%= button_to "Batch query biomart", batch_query_biomart_variants_path, method: :get, id: "batch_link", remote: true, class: 'btn btn-success' %></span>
+<span id="batch_button"><%= button_to "Batch query provean", batch_query_provean_variants_path, method: :get, id: "batch_link", remote: true, class: 'btn btn-success' %></span>
 <span id="batch_update" style="display:none"><%= image_tag("loader.gif") %>Updating... <%= Sidekiq::Client.registered_workers.length %> worker(s) in Queue. check <%= link_to "Sidekiq", "/sidekiq"  %> for current worker status</span>
 <% else %>
 <span id="batch_update"><%= image_tag("loader.gif") %>Updating... <%= Sidekiq::Client.registered_workers.length %> worker(s) in Queue. Check <%= link_to "Sidekiq", "/sidekiq"  %> for status</span>

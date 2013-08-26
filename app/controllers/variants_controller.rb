@@ -113,8 +113,8 @@ class VariantsController < ApplicationController
   def query_provean
     if params[:id]
       @variant = Variant.find(params[:id])
-      parsed_records = @variant.query_provean
-      @variant.build_provean_records(parsed_records)
+      parsed_records = Variant.query_provean(@variant.provean_variant, 10)
+      Variant.build_provean_records(parsed_records, @variant.id)
     end
     
     respond_to do |format|
@@ -123,7 +123,37 @@ class VariantsController < ApplicationController
     end
   end
   
+  def batch_query_provean
+  	location_array = Array.new
+  	largest_array = 0
+  	chromosomes = Chromosome.select(:all).pluck(:id)
+  	chromosomes.each do |chromosome_id|
+  		
+  		locations = Location.variants_by_chromosome(chromosome_id).pluck(:locatable_id)
+  		locations.length > largest_array ? largest_array = locations.length : largest_array
+  		location_array.push(locations)
+  	end
+  	
+  	location_array.each do |locations|
+  		i = largest_array - locations.length
+  		padding = Array.new(i)
+  		locations.concat(padding)
+  	end
+  	
+  	transpose_array = location_array.transpose
+  	transpose_array.each do |variant_set|
+  		
+  		ProveanBatchWorker.perform_async(variant_set)
+  		
+  	end
+  	respond_to do |format|
+    	format.html{redirect_to variants_url}
+    	format.js
+    end
+  end
+  
   def batch_query_biomart
+=begin
     variants = Variant.select(:all).pluck(:id)
     variant_array = variants.each_slice(20).to_a
     last_array = variant_array.last
@@ -132,7 +162,26 @@ class VariantsController < ApplicationController
     padding = Array.new(i)
     last_array.concat(padding)
     transpose_array = variant_array.transpose
-    transpose_array.each do |variant_set|
+=end    
+    location_array = Array.new
+  	largest_array = 0
+  	chromosomes = Chromosome.select(:all).pluck(:id)
+  	chromosomes.each do |chromosome_id|
+  		
+  		locations = Location.variants_by_chromosome(chromosome_id).pluck(:locatable_id)
+  		locations.length > largest_array ? largest_array = locations.length : largest_array
+  		location_array.push(locations)
+  	end
+=begin 	
+  	location_array.each do |locations|
+  		i = largest_array - locations.length
+  		padding = Array.new(i)
+  		locations.concat(padding)
+  	end
+  	
+  	transpose_array = location_array.transpose
+=end
+    location_array.each do |variant_set|
 
     				BatchWorker.perform_async(variant_set)
     				Gene.remove_duplicates

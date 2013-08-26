@@ -17,7 +17,7 @@ class GenesController < ApplicationController
   # GET /genes/1.json
   def show
     @gene = Gene.find(params[:id])
-
+    @variants = @gene.find_variants
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @gene }

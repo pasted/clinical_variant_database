@@ -1,21 +1,9 @@
 <p id="notice"><%= notice %></p>
-<p>
-  <b>Id:</b>
-  <%= @gene.id %>
-</p>
-<p>
-  <b>External Gene Id:</b>
-  <%= @gene.external_gene_id %>
-</p>
-<p>
-  <b>Ensembl Gene Id:</b>
-  <%= @gene.ensembl_gene_id %>
-</p>
-<p>
-  <b>Transcript Count:</b>
-  <%= @gene.transcript_count %>
-</p>
-
-
+<table>
+<%= render :partial => 'genes/gene_row', locals: {gene_row: @gene} %>
+</table>
+<table>
+<%= render :partial => 'variants/variant_row', :collection => @variants %>
+</table>
 <%= link_to 'Edit', edit_gene_path(@gene) %> |
 <%= link_to 'Back', genes_path %>

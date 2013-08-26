@@ -1,0 +1,42 @@
+
+	<tr>
+	  <th class="header" >
+	  	<b>Variant id:</b>
+	  </th>
+		<th class="header" >
+			<b>Chromosome name:</b>
+  	</th>
+  	<th class="header" >
+			<b>Genomic start position:</b>
+  	</th>
+  	<th class="header" >
+			<b>Name:</b>
+  	</th>
+  	<th class="header" >
+			<b>Reference:</b>
+  	</th>
+  	<th class="header" >
+			<b>Alternative:</b>
+  	</th>
+  </tr>
+  <tr>
+    <td>
+    	<%= variant_row.id %>
+    </td>
+  	<td>
+  		<%= variant_row.location.chromosome.name %>
+  	</td>
+  	<td>
+  		<%= variant_row.location.position_start %>
+  	</td>
+  	<td>
+  		<%= variant_row.name %>
+  	</td>
+  	<td>
+  		<%= variant_row.reference %>
+  	</td>
+  	<td>
+  		<%= variant_row.alternative %>
+  	</td>
+  </tr>
+

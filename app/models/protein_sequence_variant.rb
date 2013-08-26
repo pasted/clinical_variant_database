@@ -5,6 +5,6 @@ class ProteinSequenceVariant < ActiveRecord::Base
   attr_accessible :sift_score, :sift_prediction, :sift_median_info, :sift_seq
   attr_accessible :db_snp_id
 
-  belongs_to  :variant, dependent: :destroy
+  belongs_to  :variant
 
 end

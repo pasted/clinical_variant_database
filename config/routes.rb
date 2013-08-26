@@ -17,7 +17,7 @@ ClinicalVariantDatabase::Application.routes.draw do
     get 'query_provean', :on => :member
 
     get 'batch_query_biomart', :on => :collection
-    
+    get 'batch_query_provean', :on => :collection
     resources :locations
   end
   

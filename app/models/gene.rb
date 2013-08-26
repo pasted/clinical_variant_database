@@ -5,8 +5,17 @@ class Gene < ActiveRecord::Base
   has_many :locations, :as => :locatable
   has_and_belongs_to_many :disorders
   
+  before_destroy :delete_disorders
   before_destroy :delete_locatable
   
+  def find_variants
+  	variants = Array.new
+  	locations = Location.includes_variant_location(self.locations.first.position_start, self.locations.first.position_end)
+  	locations.each do |location|
+  		variants.push( location.locatable )
+  	end
+  	return variants
+  end
   
   def convert_strand_string(strand)
   	  if strand == "-1"
@@ -69,6 +78,12 @@ class Gene < ActiveRecord::Base
   def delete_locatable
   	if self.locations.length > 0
   		self.locations.delete_all
+  	end
+  end
+  
+  def delete_disorders
+  	if self.disorders.length > 0
+  		self.disorders.delete_all
   	end
   end
   

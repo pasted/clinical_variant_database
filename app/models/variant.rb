@@ -11,18 +11,18 @@ class Variant < ActiveRecord::Base
 
   def find_gene
     if (location = Location.includes_location(self.location.position_start).first) && (location.gene?)
-      @gene = location.locatable
-      return @gene
+      gene = location.locatable
+      return gene
     else
     	return false
     end
   end
   
   def gene_name
-    location = Location.includes_gene_location("#{self.location.position_start}").first
+    location = Location.found_in_gene(self.location.position_start).first
     if location && location.gene?
-      @gene = location.locatable
-      return @gene.external_gene_id
+      gene = location.locatable
+      return gene.external_gene_id
     end
   end
   
@@ -31,18 +31,18 @@ class Variant < ActiveRecord::Base
   	return str
   end
   
-  def query_provean
+  def self.query_provean(provean_variant, wait)
   	agent = Mechanize.new
   	start_page = agent.get("http://provean.jcvi.org/genome_submit.php")
 
   	this_form = start_page.form_with(:name => 'chrForm')
-  	this_form.field_with(:name => "CHR").value = self.provean_variant
+  	this_form.field_with(:name => "CHR").value = provean_variant
 
   	submit_page = agent.submit(this_form)
 
 
   		retryable(:tries => 3) do
-  			sleep(10)
+  			sleep(wait)
   			next_page = agent.get(submit_page.uri.to_s)
 
   			job_id = submit_page.uri.to_s.split("http://provean.jcvi.org/genome_report.php?jobid=").last
@@ -55,8 +55,10 @@ class Variant < ActiveRecord::Base
   	
   end
   
-  def build_provean_records(parsed_records)
+  def self.build_provean_records(parsed_records, id)
   	this_protein_variant = ProteinSequenceVariant.new
+  	variant = Variant.find(id)
+  	variant.protein_sequence_variants.clear
   	parsed_records.each do |row|
   		this_protein_variant.ensembl_protein_id 	= row[3]
   		this_protein_variant.sequence_length			= row[4]
@@ -75,9 +77,11 @@ class Variant < ActiveRecord::Base
   		this_protein_variant.sift_median_info			= row[17]
   		this_protein_variant.sift_seq							= row[18]
   		this_protein_variant.db_snp_id						= row[19]
-  	  self.protein_sequence_variants.push(this_protein_variant)
+  		#for now clear any old protein variant records and replace
+
+  	  variant.protein_sequence_variants.push(this_protein_variant)
   	end
-  	self.save!
+  	variant.save!
   end
   
   protected
