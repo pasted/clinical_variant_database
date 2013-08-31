@@ -7,6 +7,7 @@
     <th class="header" ><%= sort_link(@search, :disorder_omim_id, "OMIM disorder Id") %></th>
     <th class="header" ><%= sort_link(@search, :name, "Disorder name") %></th>
     <th class="header" ><%= sort_link(@search, :disorder_type, "Disorder type") %></th>
+    <th class="header" >Genes</th>
     <th></th>
     <th></th>
     <th></th>
@@ -19,6 +20,11 @@
     <td><%= disorder.disorder_omim_id %></td>
     <td><%= disorder.name %></td>
     <td><%= disorder.disorder_type %></td>
+    <td>
+    <% disorder.genes.each do |gene| %>
+     <%= link_to gene.external_gene_id, gene_path(gene)  %>
+    <% end %>
+    </td>
     <td><%= button_to 'Show', disorder, method: :get, class: 'btn btn-success' %></td>
     <td><%= button_to 'Edit', edit_disorder_path(disorder), method: :get, class: 'btn btn-warning' %></td>
     <td><%= button_to 'Destroy', disorder, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>

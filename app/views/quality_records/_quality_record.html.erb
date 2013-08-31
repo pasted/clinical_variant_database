@@ -1,0 +1,41 @@
+<table>
+	<tr>
+	  <th class="header" >
+	  	<b>Score:</b>
+	  </th>
+		<th class="header" >
+			<b>Filter:</b>
+  	</th>
+  </tr>
+  <tr>
+    <td>
+    	<%= quality_record.score %>
+    </td>
+  	<td>
+  		<%= quality_record.filter %>
+  	</td>
+  </tr>
+</table>
+<table class="samples">
+	<tr>
+	  <th class="header sample" >
+	  	<b>Name:</b>
+	  </th>
+		<th class="header sample" >
+			<b>Genotype (GT):</b>
+  	</th>
+  	<th class="header sample" >
+			<b>Total read depth (DP):</b>
+  	</th>
+  	<th class="header sample" >
+			<b>Conditional genotype quality (GQ):</b>
+  	</th>
+  	<th class="header sample" >
+			<b>Genotype likelihood (PL):</b>
+  	</th>
+  	<th class="header sample" >
+			<b>Allele read depth (AD):</b>
+  	</th>
+  </tr>
+<%= render :partial => 'samples/sample_row', :collection => quality_record.samples %>
+</table>

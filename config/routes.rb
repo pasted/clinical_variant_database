@@ -56,6 +56,13 @@ ClinicalVariantDatabase::Application.routes.draw do
   	end
   end
   
+  resources :subjects do
+  	collection do
+  		match 'search' => 'subjects#index', :via => [:get, :post], :as => :search
+  	end
+  	get 'pedigree', :on => :member
+  end
+  
   
   root :to => 'uploads#index'
 

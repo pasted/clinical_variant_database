@@ -1,4 +1,4 @@
-
+<table>
 	<tr>
 	  <th class="header gene" >
 	  	Gene id:
@@ -15,16 +15,16 @@
   </tr>
   <tr>
     <td>
-      <%= link_to gene_row.id, gene_path(gene_row)  %>
+      <%= link_to gene.id, gene_path(gene)  %>
     </td>
   	<td>
-  		<%= gene_row.external_gene_id %>
+  		<%= gene.external_gene_id %>
   	</td>
   	<td>
-  		<%= gene_row.ensembl_gene_id %>
+  		<%= gene.ensembl_gene_id %>
   	</td>
   	<td>
-  		<%= gene_row.transcript_count %>
+  		<%= gene.transcript_count %>
   	</td>
   </tr>
-  
+</table> 

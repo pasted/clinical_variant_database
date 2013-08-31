@@ -4,15 +4,29 @@
   <%= @sample.id %>
 </p>
 <p>
-  <b>Name:</b>
-  <%= @sample.name %>
+  <b>Subject name:</b>
+  <%= @sample.subject.name %>
 </p>
 <p>
-  <b>Data:</b>
-  <%= @sample.data %>
+  <b>Genotype:</b>
+  <%= @sample.genotype %>
 </p>
-
-
+<p>
+  <b>Total read depth:</b>
+  <%= @sample.total_read_depth %>
+</p>
+<p>
+  <b>Conditional genotype quality:</b>
+  <%= @sample.conditional_genotype_quality %>
+</p>
+<p>
+  <b>Genotype likelihood:</b>
+  <%= @sample.genotype_likelihood %>
+</p>
+<p>
+  <b>Allele read depth:</b>
+  <%= @sample.allele_read_depth %>
+</p>
 
 <%= link_to 'Edit', edit_sample_path(@sample) %> |
 <%= link_to 'Back', samples_path %>

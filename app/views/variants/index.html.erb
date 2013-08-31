@@ -34,7 +34,7 @@
     <td><%= variant.gene_name %></td>
     <td><% if !variant.protein_sequence_variants.empty? %>
     <% variant.protein_sequence_variants.pluck(:id).each do |id| %>
-    <%= link_to id, protein_sequence_variants_path(:id => id) %>
+    <%= button_to "Provean", protein_sequence_variants_path(:id => id), method: :get, :class=> "btn" %>
     <% end %>
     <% end %>
     </td>

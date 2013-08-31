@@ -3,8 +3,12 @@
 <table>
   <tr>
     <th class="header" ><%= sort_link(@search, :id, "Id") %></th>
-    <th class="header" ><%= sort_link(@search, :name, "Name") %></th>
-    <th class="header" ><%= sort_link(@search, :data, "Data") %></th>
+    <th class="header" ><%= sort_link(@search, :subject_name, "Name") %></th>
+    <th class="header" ><%= sort_link(@search, :genotype, "GT") %></th>
+    <th class="header" ><%= sort_link(@search, :total_read_depth, "DP") %></th>
+    <th class="header" ><%= sort_link(@search, :conditional_genotype_quality, "GQ") %></th>
+    <th class="header" ><%= sort_link(@search, :genotype_likelihood, "PL") %></th>
+    <th class="header" ><%= sort_link(@search, :allele_read_depth, "AD") %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,8 +17,12 @@
 <% @samples.each do |sample| %>
   <tr>
     <td><%= sample.id %></td>
-    <td><%= sample.name %></td>
-    <td><%= sample.data %></td>
+    <td><%= sample.subject.name %></td>
+    <td><%= sample.genotype %></td>
+    <td><%= sample.total_read_depth %></td>
+    <td><%= sample.conditional_genotype_quality %></td>
+    <td><%= sample.genotype_likelihood %></td>
+    <td><%= sample.allele_read_depth %></td>
     <td><%= button_to 'Show', sample, method: :get, class: 'btn btn-success' %></td>
     <td><%= button_to 'Edit', edit_sample_path(sample), method: :get, class: 'btn btn-warning' %></td>
     <td><%= button_to 'Destroy', sample, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
@@ -24,3 +32,4 @@
 <%= paginate @samples %>
 <%= render :partial => 'search_partial' %>
 <%= link_to 'New Sample', new_sample_path %>
+

@@ -1,26 +1,9 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <b>Chromosome name:</b>
-  <%= @variant.location.chromosome.name %>
-</p>
-<p>
-  <b>Genomic start position:</b>
-  <%= @variant.location.position_start %>
-</p>
-<p>
-  <b>Name:</b>
-  <%= @variant.name %>
-</p>
-<p>
-  <b>Reference:</b>
-  <%= @variant.reference %>
-</p>
-<p>
-  <b>Alternative:</b>
-  <%= @variant.alternative %>
-</p>
-
+<% if @gene %>
+<%= render :partial => 'genes/gene', locals: { gene: @gene} %>
+<% end %>
+<%= render :partial => 'variants/variant', locals: { variant: @variant} %>
+<%= render :partial => 'quality_records/quality_record', :collection => @variant.quality_records %>
 
 <%= link_to 'Edit', edit_variant_path(@variant) %> |
 <%= link_to 'Back', variants_path %>

@@ -6,6 +6,7 @@
     <th class="header" ><%= sort_link(@search, :external_gene_id, "External Gene Id") %></th>
     <th class="header" ><%= sort_link(@search, :ensembl_gene_id, "Ensembl Gene Id") %></th>
     <th class="header" ><%= sort_link(@search, :transcript_count, "Transcript Count") %></th>
+    <th class="header" >CATH-Gene3D</th>
     <th></th>
     <th></th>
     <th></th>
@@ -17,6 +18,7 @@
     <td><%= gene.external_gene_id %></td>
     <td><%= link_to gene.ensembl_gene_id, "http://www.ensembl.org/Homo_sapiens/Location/View?db=core;g=#{gene.ensembl_gene_id}" %></td>
     <td><%= gene.transcript_count %></td>
+    <td><%= button_to "CATH-Gene3D", "http://gene3d.biochem.ucl.ac.uk/Gene3D/proteins/?keywords=#{gene.ensembl_gene_id}&taxon-filter=HOMO+SAPIENS+%28taxon_ID%3A9606%29%2C+&fastas=", class: 'btn' %></td>
     <td><%= button_to 'Show', gene, method: :get, class: 'btn btn-success' %></td>
     <td><%= button_to 'Edit', edit_gene_path(gene), method: :get, class: 'btn btn-warning' %></td>
     <td><%= button_to 'Destroy', gene, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
@@ -25,3 +27,4 @@
 </table>
 <%= paginate @genes %>
 <%= render :partial => 'search_partial' %>
+

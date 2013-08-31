@@ -1,4 +1,4 @@
-
+  <thead>
 	<tr>
 	  <th class="header" >
 	  	<b>Variant id:</b>
@@ -19,9 +19,11 @@
 			<b>Alternative:</b>
   	</th>
   </tr>
+  </thead>
+  <tbody>
   <tr>
     <td>
-    	<%= variant_row.id %>
+      <%= link_to variant_row.id, variant_path(variant_row)  %>
     </td>
   	<td>
   		<%= variant_row.location.chromosome.name %>
@@ -39,4 +41,5 @@
   		<%= variant_row.alternative %>
   	</td>
   </tr>
+  </tbody>
 

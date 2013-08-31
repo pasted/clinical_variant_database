@@ -133,7 +133,7 @@ class VariantsController < ApplicationController
   		locations.length > largest_array ? largest_array = locations.length : largest_array
   		location_array.push(locations)
   	end
-  	
+=begin 	
   	location_array.each do |locations|
   		i = largest_array - locations.length
   		padding = Array.new(i)
@@ -141,7 +141,8 @@ class VariantsController < ApplicationController
   	end
   	
   	transpose_array = location_array.transpose
-  	transpose_array.each do |variant_set|
+=end
+  	location_array.each do |variant_set|
   		
   		ProveanBatchWorker.perform_async(variant_set)
   		

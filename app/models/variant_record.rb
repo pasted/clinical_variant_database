@@ -1,4 +1,4 @@
-class VariantRow
+class VariantRecord
 
   include ActiveModel::Validations
   include ActiveModel::Conversion
@@ -90,7 +90,7 @@ class VariantRow
       				this_sample.genotype_likelihood = value
       			when 'AD'
       				this_sample.allele_read_depth = value
-      		end
+      	end
       end
       
       this_sample.subject = this_subject

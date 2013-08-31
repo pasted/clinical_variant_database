@@ -20,6 +20,8 @@
   <%= @disorder.disorder_type %>
 </p>
 
-
+<table>
+<%= render :partial => 'genes/gene_row', :collection => @disorder.genes %>
+</table>
 <%= link_to 'Edit', edit_disorder_path(@disorder) %> |
 <%= link_to 'Back', disorders_path %>

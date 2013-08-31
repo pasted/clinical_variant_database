@@ -6,12 +6,13 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'activerecord-postgres-hstore'
+
 gem 'ransack'
 gem 'kaminari'
 gem 'biomart'
 gem 'mechanize'
 gem 'retryable'
+gem 'closure_tree'
 
 gem 'sidekiq'
 gem 'redis-semaphore'
@@ -41,6 +42,7 @@ gem 'jquery-rails'
 gem 'jquery-fileupload-rails'
 gem 'paperclip'
 gem 'twitter-bootstrap-rails'
+gem 'd3-rails', '~> 0.0.5'
 
 
 # To use ActiveModel has_secure_password

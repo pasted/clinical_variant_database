@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731045936) do
+ActiveRecord::Schema.define(:version => 20120731045937) do
 
   create_table "chromosomes", :force => true do |t|
     t.string   "name"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(:version => 20120731045936) do
   create_table "disorders_genes", :force => true do |t|
     t.integer "gene_id"
     t.integer "disorder_id"
+  end
+
+  create_table "facts", :force => true do |t|
+    t.string   "name"
+    t.string   "number"
+    t.string   "type"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "genes", :force => true do |t|
@@ -87,10 +96,30 @@ ActiveRecord::Schema.define(:version => 20120731045936) do
 
   create_table "samples", :force => true do |t|
     t.integer  "quality_record_id"
+    t.integer  "subject_id"
+    t.string   "genotype"
+    t.string   "total_read_depth"
+    t.string   "conditional_genotype_quality"
+    t.string   "genotype_likelihood"
+    t.string   "allele_read_depth"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
+
+  create_table "subject_hierarchies", :id => false, :force => true do |t|
+    t.integer "ancestor_id",   :null => false
+    t.integer "descendant_id", :null => false
+    t.integer "generations",   :null => false
+  end
+
+  add_index "subject_hierarchies", ["ancestor_id", "descendant_id", "generations"], :name => "subject_anc_desc_udx", :unique => true
+  add_index "subject_hierarchies", ["descendant_id"], :name => "subject_desc_idx"
+
+  create_table "subjects", :force => true do |t|
     t.string   "name"
-    t.hstore   "data"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.integer  "parent_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "uploads", :force => true do |t|

@@ -57,7 +57,6 @@ class Gene < ActiveRecord::Base
         disorder_response = this_disorder.query_biomart(self.external_gene_id)
         if ((disorder_response) && !(Disorder.find_by_omim_id(response[:data][0][0])))
       	  this_disorder.build_disorder(disorder_response, self.id)
-      	  self.disorders.push(this_disorder)
         end
         self.save!
       end
