@@ -4,13 +4,14 @@ class Variant < ActiveRecord::Base
 
   has_one :location, :as => :locatable
   has_many :quality_records, dependent: :destroy
+
   has_many :protein_sequence_variants, dependent: :destroy
   
   before_destroy :delete_locatable
   
 
   def find_gene
-    if (location = Location.includes_location(self.location.position_start).first) && (location.gene?)
+    if (location = Location.found_in_gene(self.location.position_start).first)
       gene = location.locatable
       return gene
     else

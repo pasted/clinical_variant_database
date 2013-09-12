@@ -4,5 +4,6 @@ class QualityRecord < ActiveRecord::Base
   belongs_to :variant
   belongs_to :upload
   has_many :samples, dependent: :destroy
+  has_many :subjects, :through => :samples
 
 end

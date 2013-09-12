@@ -1,0 +1,26 @@
+<h1>Listing subjects</h1>
+
+<table>
+  <tr>
+    <th class="header" ><%= sort_link(@search, :id, "Id") %></th>
+    <th class="header" ><%= sort_link(@search, :name, "Name") %></th>
+
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @subjects.each do |subject| %>
+  <tr>
+    <td><%= subject.id %></td>
+    <td><%= subject.name %></td>
+    <td><%= button_to 'Show', subject, method: :get, class: 'btn btn-success' %></td>
+    <td><%= button_to 'Edit', edit_subject_path(subject), method: :get, class: 'btn btn-warning' %></td>
+    <td><%= button_to 'Destroy', subject, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+  </tr>
+<% end %>
+</table>
+<%= paginate @subjects %>
+
+<%= link_to 'New Subject', new_subject_path %>
+

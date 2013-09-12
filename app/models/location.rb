@@ -9,7 +9,7 @@ class Location < ActiveRecord::Base
   belongs_to :chromosome
   
   def self.includes_location(location)
-    where("position_start >= ? AND position_end <= ?", location, location)  
+    where("position_start <= ? AND position_end >= ?", location, location)  
   end
   
   def self.includes_gene_location(location_start, location_end)

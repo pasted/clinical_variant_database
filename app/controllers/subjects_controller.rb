@@ -20,8 +20,9 @@ class SubjectsController < ApplicationController
   # GET /subjects/1
   # GET /subjects/1.json
   def show
+  	
     @subject = Subject.find(params[:id])
-
+    @variants = @subject.variants.page(params[:page]).per(10)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @subject }

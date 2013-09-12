@@ -1,11 +1,24 @@
+<div class="row-fluid">
 <h1>Listing variants</h1>
 <% if Sidekiq::Client.registered_workers.length == 0 %>
+<div class="span2">
 <span id="batch_button"><%= button_to "Batch query biomart", batch_query_biomart_variants_path, method: :get, id: "batch_link", remote: true, class: 'btn btn-success' %></span>
+</div>
+<div class="span4">
 <span id="batch_button"><%= button_to "Batch query provean", batch_query_provean_variants_path, method: :get, id: "batch_link", remote: true, class: 'btn btn-success' %></span>
-<span id="batch_update" style="display:none"><%= image_tag("loader.gif") %>Updating... <%= Sidekiq::Client.registered_workers.length %> worker(s) in Queue. check <%= link_to "Sidekiq", "/sidekiq"  %> for current worker status</span>
+</div>
+<div class="span6" id="batch_update_bar" style="display:none">
+<%= image_tag("loader.gif") %>Updating... 
+</div>
+<div class="span8" id="batch_update_info" style="display:none">
+<%= Sidekiq::Client.registered_workers.length %> worker(s) in Queue. check <%= link_to "Sidekiq", "/sidekiq"  %> for current worker status
+</div>
 <% else %>
+<div class="span2">
 <span id="batch_update"><%= image_tag("loader.gif") %>Updating... <%= Sidekiq::Client.registered_workers.length %> worker(s) in Queue. Check <%= link_to "Sidekiq", "/sidekiq"  %> for status</span>
+</div>
 <% end %>
+</div>
 <table>
   <tr>
     <th class="header" ><%= sort_link(@search, :id, "Id") %></th>
@@ -34,12 +47,12 @@
     <td><%= variant.gene_name %></td>
     <td><% if !variant.protein_sequence_variants.empty? %>
     <% variant.protein_sequence_variants.pluck(:id).each do |id| %>
-    <%= button_to "Provean", protein_sequence_variants_path(:id => id), method: :get, :class=> "btn" %>
+    <%= button_to "Provean", protein_sequence_variants_path(:id => id), method: :get, :class=> "btn btn-inverse" %>
     <% end %>
     <% end %>
     </td>
-    <td><%= button_to 'Biomart', query_biomart_variant_path(variant), method: :get, class: 'btn btn-primary' %></td>
-    <td><%= button_to 'Provean', query_provean_variant_path(variant), method: :get, class: 'btn btn-primary' %></td>
+    <td><%= button_to 'Biomart', query_biomart_variant_path(variant), method: :get, class: 'btn btn-info' %></td>
+    <td><%= button_to 'Provean', query_provean_variant_path(variant), method: :get, class: 'btn btn-info' %></td>
     <td><%= button_to 'Show', variant, method: :get, class: 'btn btn-success' %></td>
     <td><%= button_to 'Edit', edit_variant_path(variant), method: :get, class: 'btn btn-warning' %></td>
     <td><%= button_to 'Destroy', variant, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>

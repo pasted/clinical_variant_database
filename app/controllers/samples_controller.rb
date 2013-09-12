@@ -21,7 +21,7 @@ class SamplesController < ApplicationController
   # GET /samples/1.json
   def show
     @sample = Sample.find(params[:id])
-
+ 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @sample }
