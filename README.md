@@ -5,7 +5,8 @@ Gene annotations can be retrieved via Biomart integration from Ensembl dataset.
 ##Features
 
 - [x] VCF file upload and parsing.
-- [x] Serialised storage of hashed values into postgreSQL Hstore field.
+- [x] Serialised storage of hashed values into postgreSQL Hstore field - allows NoSQL-type unstructured data to be 
+      stored within an overall relational database structure.
 - [x] Integration with Biomart (hsapiens_gene_ensembl, omim), other datasets can also be interrogated.
 - [x] Integration with Provean (Protein Variation Effect Analyzer) via Mechanize
 - [x] Pagination,Search and sorting functionality for Variants, using Ransack and Kaminari.
